@@ -1,9 +1,12 @@
 import axios from 'axios';
-import { User } from '../types';
 
-export async function getAllUsers(): Promise<User[]> {
+const api = axios.create({
+  baseURL: import.meta.env.BASE_URL
+});
+
+export async function getAllUsers() {
   try {
-    const response = await axios.get('/api/v1/users');
+    const response = await api.get('/users');
     return response.data;
   } catch (error) {
     console.error(error);
