@@ -28,3 +28,7 @@ export interface UseUsersResult {
   loading: boolean;
   error: string | null;
 }
+
+interface EmployeeChangeLogProps {
+  sensitive?: boolean;
+}

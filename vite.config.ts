@@ -1,5 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+/// <reference types="vitest/config" />
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,6 +13,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/api\/v1/, '')
       }
-    } 
+    }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom'
   }
-})
+});

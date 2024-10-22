@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios, { AxiosError } from 'axios';
-import { getUsers } from '../services/users';
+import { getAllUsers } from '../services/users';
 import { UseUsersResult, User } from '../types';
 
 export default function useUsers(): UseUsersResult {
@@ -10,7 +10,7 @@ export default function useUsers(): UseUsersResult {
 
   const fetchUsers = useCallback(async (signal: AbortSignal) => {
     try {
-      const data = await getUsers(signal);
+      const data: User[] = await getAllUsers(signal);
       setUsers(data);
       setError(null);
     } catch (err) {
@@ -29,7 +29,9 @@ export default function useUsers(): UseUsersResult {
         setError('An unexpected error occurred');
       }
     } finally {
-      setLoading(false);
+      if (!signal.aborted) {
+        setLoading(false);
+      }
     }
   }, []);
 
