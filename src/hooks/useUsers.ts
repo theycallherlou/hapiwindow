@@ -8,11 +8,13 @@ export default function useUsers(): UseUsersResult {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchUsers = useCallback(async (signal: AbortSignal) => {
+  const fetchUsers = useCallback(async () => {
     try {
-      const data: User[] = await getAllUsers(signal);
+      setLoading(true);
+      const data: User[] = await getAllUsers();
       setUsers(data);
       setError(null);
+      setLoading(false);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const axiosError = err as AxiosError<{ message: string }>;
@@ -28,18 +30,11 @@ export default function useUsers(): UseUsersResult {
       } else {
         setError('An unexpected error occurred');
       }
-    } finally {
-      if (!signal.aborted) {
-        setLoading(false);
-      }
     }
   }, []);
 
   useEffect(() => {
-    const controller = new AbortController();
-    fetchUsers(controller.signal);
-
-    return () => controller.abort();
+    fetchUsers();
   }, [fetchUsers]);
 
   return { users, loading, error };
