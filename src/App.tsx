@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import EmployeeDirectory from './pages/EmployeeDirectory';
 import EmployeeDetail from './pages/EmployeeDetail';
@@ -9,6 +9,7 @@ import NewHireDetail from './pages/NewHireDetail';
 export default function App() {
   return (
     <Router>
+      <Link to="/">Welcome</Link>
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -16,12 +17,27 @@ export default function App() {
 
         <Route path="/employeedirectory/:eecode" element={<EmployeeDetail />} />
         <Route path="/employee/:eecode" element={<EmployeeDetail />} />
-        <Route path="/employee/:eecode/sensitive" element={<EmployeeDetail sensitive />} />
+        <Route
+          path="/employee/:eecode/sensitive"
+          element={<EmployeeDetail sensitive />}
+        />
 
-        <Route path="/employee/:eecode/change" element={<EmployeeChangeLog />} />
-        <Route path="/employee/:eecode/change/:changeId" element={<EmployeeChangeLog />} />
-        <Route path="/employee/:eecode/sensitivechange" element={<EmployeeChangeLog sensitive />} />
-        <Route path="/employee/:eecode/sensitivechange/:changeId" element={<EmployeeChangeLog sensitive />} />
+        <Route
+          path="/employee/:eecode/change"
+          element={<EmployeeChangeLog />}
+        />
+        <Route
+          path="/employee/:eecode/change/:changeId"
+          element={<EmployeeChangeLog />}
+        />
+        <Route
+          path="/employee/:eecode/sensitivechange"
+          element={<EmployeeChangeLog sensitive />}
+        />
+        <Route
+          path="/employee/:eecode/sensitivechange/:changeId"
+          element={<EmployeeChangeLog sensitive />}
+        />
 
         <Route path="/newhireids" element={<NewHireList />} />
         <Route path="/newhire/:newHireId" element={<NewHireDetail />} />
